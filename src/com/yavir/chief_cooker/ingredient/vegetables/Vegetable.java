@@ -40,6 +40,11 @@ public class Vegetable extends Ingredient {
     }
 
     @Override
+    public int compareTo(Ingredient o) {
+        return Double.compare(getWeighInGrams(), o.getWeighInGrams());
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "\n\tVegetable info:\n\t\tVegetable Type " + getVegetableType() + "\n___________________________\n";
     }

@@ -2,7 +2,7 @@ package com.yavir.chief_cooker.ingredient;
 
 import java.util.Objects;
 
-public abstract class Ingredient {
+public abstract class Ingredient implements Comparable<Ingredient>{
 
     private static final int MAX_INGREDIENT_NAME_LENGTH = 60;
 
