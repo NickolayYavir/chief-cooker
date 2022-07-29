@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+
 public class Dish {
 
     private static final int MAX_DISH_NAME_LENGTH = 120;
@@ -16,9 +17,8 @@ public class Dish {
     private double dishFats;
     private double dishCarbohydrates;
     private double dishProteins;
-    //String dishType;
-    List<Ingredient> ingredients = new ArrayList<>();
 
+    List<Ingredient> ingredients = new ArrayList<>();
 
     public Dish(String dishName, Ingredient... ingredients){
         setDishName(dishName);
@@ -56,6 +56,14 @@ public class Dish {
         } else {
             throw new IllegalArgumentException("Dish have to contain two and more ingredients");
         }
+        for (int i = 0; i < ingredients.length; i++) {
+            for (int j = 0; j < ingredients.length; j++) {
+                if (i != j && ingredients[i].getIngredientName().equals(ingredients[j].getIngredientName())){
+                    throw new IllegalArgumentException("A dish cannot contain the same ingredient");
+                }
+            }
+        }
+
     }
 
     public void setDishName(String dishName) {
@@ -107,14 +115,20 @@ public class Dish {
 
     public void printIngredients() {
         System.out.println("\n" + getDishName() + " ingredients:");
-        ingredients.forEach(el ->{
-            System.out.println(el.getIngredientName() + " " + el.getWeighInGrams() + "g");
-        });
+        ingredients.forEach(el -> System.out.println(el.getIngredientName() + " " + el.getWeighInGrams() + "g"));
     }
 
     public void printIngredientsDetail() {
         System.out.println("\n" + getDishName() + " ingredients details:");
         ingredients.forEach(System.out::println);
+    }
+
+    public void printIngredientsCaloriesRange(Double rangeStart, Double rangeEnd) {
+        ingredients.forEach(el -> {
+            if (el.calculateCalories() > rangeStart && el.calculateCalories() < rangeEnd){
+                System.out.println(el);
+            }
+        });
     }
 
     @Override
